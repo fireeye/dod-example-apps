@@ -22,8 +22,9 @@ from googleapiclient.discovery import build
 from google_auth_oauthlib.flow import InstalledAppFlow
 from google.auth.transport.requests import Request
 from googleapiclient.http import MediaIoBaseDownload
+import secrets
 
-DOD_API_KEY = "PNHExopXZtwvfWIpr3QzS994HgE_KXkK4ouPYHDWssi1gWOjWedYsdvYYnlY6ZncRInKY8GxTM7q_33d8A-m3zmh1_XZkLFDr7KZJA0kuHkzKQgICd476dEdVm-nEDnEbIodoUCFSg290sE-rZLVRObe_1i6S1D7KT9a5ksdwu8" # In production, you'll want a more secure way to get the API key instead of putting it in this script
+DOD_API_KEY = secrets.keys['DOD_API_KEY']
 REPORT_RETRY_TIME = 5 # Wait 'n' seconds between each poll to the /reports endpoint to get the status of file reports
 DOD_FILE_SIZE_LIMIT = 32000000 # 32 MB in SI units.  Files larger than this won't be downloaded from GDrive since DoD won't accept them.
 QUARANTINE_FOLDER_NAME = "Quarantine" # Name of the folder to put malicious files in.  If this folder doesn't exist, the script will create it.

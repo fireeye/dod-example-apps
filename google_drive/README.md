@@ -13,7 +13,12 @@ Use **step 1** of this page to quickly setup a project and credentials.json: htt
 Download the credentials.json and move it to this folder.
 
 ### Acquire Detection on Demand API Key
-If you don't already have a key, go to https://fireeye.dev/docs/detection-on-demand/#prerequisites and follow the directions.
+If you don't already have a key, go to https://fireeye.dev/docs/detection-on-demand/#prerequisites and follow the directions.  Once you have an API key, create a file in the project called "secrets.py" with the following contents:
+```python
+keys = {
+    'DOD_API_KEY': "<your api key>"
+}
+```
 
 # Usage
 ### Synchronous vs Threaded Scripts
