@@ -129,28 +129,31 @@ def downloadAndScanFiles(google_service, detection_client, files):
     submitted_files = {} 
 
     for file in files:
-        if int(file["size"]) <= DOD_FILE_SIZE_LIMIT:
-            try:
-                request = google_service.files().get_media(fileId=file["id"])
-                # Keep the files in memory instead of saved to disk since we need to upload to DoD
-                fh = BytesIO()
-                downloader = MediaIoBaseDownload(fh, request) 
-                downloader.next_chunk(num_retries=1)
-                print(f"Downloaded from GDrive: {file}")
-                # Submit file handler to DoD for scanning.
-                response = detection_client.submit_file(
-                    files={
-                        "file": (file["name"], fh.getvalue())
-                    }
-                )
-                if response["status"] == "success":
-                    # Map the report ID to the file ID so we know which file to quarantine later if necessary
-                    submitted_files[response["report_id"]] = file["id"]
-                    print(f'Successfully submitted to DoD.  Report ID: {response["report_id"]}')
-            except Exception as e:
-                print(e)
+        if "size" in file:
+            if int(file["size"]) <= DOD_FILE_SIZE_LIMIT:
+                try:
+                    request = google_service.files().get_media(fileId=file["id"])
+                    # Keep the files in memory instead of saved to disk since we need to upload to DoD
+                    fh = BytesIO()
+                    downloader = MediaIoBaseDownload(fh, request) 
+                    downloader.next_chunk(num_retries=1)
+                    print(f"Downloaded from GDrive: {file}")
+                    # Submit file handler to DoD for scanning.
+                    response = detection_client.submit_file(
+                        files={
+                            "file": (file["name"], fh.getvalue())
+                        }
+                    )
+                    if response["status"] == "success":
+                        # Map the report ID to the file ID so we know which file to quarantine later if necessary
+                        submitted_files[response["report_id"]] = file["id"]
+                        print(f'Successfully submitted to DoD.  Report ID: {response["report_id"]}')
+                except Exception as e:
+                    print(e)
+            else:
+                print(f'Skipping file {file["name"]} since it is greater than the DoD file size limit.')
         else:
-            print(f'Skipping file {file["name"]} since it is greater than the DoD file size limit.')
+                print(f'Skipping file {file["name"]} since it is most likely a shared file not owned by the user.')
     
     return submitted_files
 

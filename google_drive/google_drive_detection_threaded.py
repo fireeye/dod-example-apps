@@ -176,11 +176,14 @@ def main(settings):
 
     with concurrent.futures.ThreadPoolExecutor(max_workers=WORKER_THREADS) as executor:
         for file in files:
-            if int(file["size"]) <= DOD_FILE_SIZE_LIMIT:
-                # Create a new google service object for each thread since it isn't thread safe.  Based on this issue (https://github.com/googleapis/google-api-python-client/issues/626)
-                executor.submit(downloadAndScanFile, creds, detection_client, file, quarantine_folder_id)
+            if "size" in file:
+                if int(file["size"]) <= DOD_FILE_SIZE_LIMIT:
+                    # Create a new google service object for each thread since it isn't thread safe.  Based on this issue (https://github.com/googleapis/google-api-python-client/issues/626)
+                    executor.submit(downloadAndScanFile, creds, detection_client, file, quarantine_folder_id)
+                else:
+                    print(f'Skipping file {file["name"]} since it is greater than the DoD file size limit.')
             else:
-                print(f'Skipping file {file["name"]} since it is greater than the DoD file size limit.')
+                print(f'Skipping file {file["name"]} since it is most likely a shared file not owned by the user.')
             
 
 if __name__ == '__main__':

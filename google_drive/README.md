@@ -28,11 +28,17 @@ The **threaded** version of this script, "google_drive_detection_threaded.py", w
 
 ### Configuring a script for execution
 Both scripts have constants near the top of the file that allow some configuration.
-- **DOD_API_KEY**: Populate with your Detection on Demand API key. In a production setting you will want to use a more secure approach for injecting this credential into the script.
 - **REPORT_RETRY_TIME**: Number of seconds to wait before checking the status of a detection report again
 - **DOD_FILE_SIZE_LIMIT**: Limit how many bytes of a file to download from Google Drive and upload to DoD.  Most malware is under 2MB, but DoD can support up to 32 MB.  In low bandwidth environments, you can see lot's of performance gains by reducing this number closer to 2MB.
 - **QUARANTINE_FOLDER_NAME**: The name of the folder to put malicious files in.  If this folder doesn't exist, the script will create it.
 - **WORKER_THREADS** (threaded script only): The number of threads to spawn to handle file submission and quarantine actions.  Too many threads might cause rate limit issues with the DoD and Google APIs, so you will need to tune this up or down to find the sweet spot.
+
+You will also want to check the "settings.json" file to make sure it looks like the following before your first run:
+```
+{
+    "lastRunAt": ""
+}
+```
 
 ### Running the script
 Once you have configured the single or threaded script, simply invoke the script:
