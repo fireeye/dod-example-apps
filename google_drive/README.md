@@ -9,7 +9,7 @@ pip3 install -r requirements.txt
 ```
 
 ### Setup a Google Drive API Project and Credentials
-Use **step 1** of this page to quickly setup a project and credentials.json: https://developers.google.com/drive/api/v3/quickstart/python?authuser=1
+Use **step 1** of this page to quickly setup a project and credentials.json: https://developers.google.com/drive/api/v3/quickstart/python
 Download the credentials.json and move it to this folder.
 
 ### Acquire Detection on Demand API Key
