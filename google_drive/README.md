@@ -5,7 +5,7 @@ This software is provided as a working example of how FireEye's Detection on Dem
 ### Install packages
 This script requires Python3.  Install all required packages using requirements.txt and pip3
 ```
-pip3 install -r requirements.txt
+python3 -m pip install -r requirements.txt --user
 ```
 
 ### Setup a Google Drive API Project and Credentials
