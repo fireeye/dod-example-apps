@@ -5,18 +5,22 @@ This software is provided as a working example of how FireEye's Detection on Dem
 ### Install packages
 This script requires Python3.  Install all required packages using requirements.txt and pip3
 ```
-pip3 install -r requirements.txt
+python3 -m pip install -r requirements.txt --user
 ```
 
 ### Setup a Google Drive API Project and Credentials
-Use **step 1** of this page to quickly setup a project and credentials.json: https://developers.google.com/drive/api/v3/quickstart/python?authuser=1
-Download the credentials.json and move it to this folder.
+Open https://developers.google.com/drive/api/v3/quickstart/python in your browser and complete the following steps
+1. Click “enable the drive api”
+2. Enter a name for your project, like “DoD Scanning”
+3. Select “Desktop app” when configuring your OAuth Client and click “Create”
+4. Download the client configuration
+5. Move the downloaded “credentials.json” to this project.
 
 ### Acquire Detection on Demand API Key
 If you don't already have a key, go to https://fireeye.dev/docs/detection-on-demand/#prerequisites and follow the directions.  Once you have an API key, create a file in the project called "secrets.py" with the following contents:
 ```python
 keys = {
-    'DOD_API_KEY': "<your api key>"
+    'DOD_API_KEY': "your_api_key"
 }
 ```
 
